@@ -1,0 +1,58 @@
+[
+    {
+        "adresse": "1 Rue Gpasdidee",
+        "codePostal": 75001,
+        "batiment": "Maison",
+        "nbEtage": "2",
+        "valeur": 190000
+    },
+    {
+        "adresse": "36 Rue LaFayette",
+        "codePostal": 75001,
+        "batiment": "Maison",
+        "nbEtage": "2",
+        "valeur": 230000
+    },
+    {
+        "adresse": "25 Avenue Victor Hugo",
+        "codePostal": 75001,
+        "batiment": "Maison",
+        "nbEtage": "1",
+        "valeur": 140000
+    },
+    {
+        "adresse": "12 Rue Jp",
+        "codePostal": 75001,
+        "batiment": "Maison",
+        "nbEtage": "2",
+        "valeur": 210000
+    },
+    {
+        "adresse": "1 Rue Jesaispas",
+        "codePostal": 78000,
+        "batiment": "Maison",
+        "nbEtage": "6",
+        "valeur": 150000
+    },
+    {
+        "adresse": "3 Rue Truc",
+        "codePostal": 78000,
+        "batiment": "Maison",
+        "nbEtage": "7",
+        "valeur": 180000
+    },
+    {
+        "adresse": "27 Avenue Bidule",
+        "codePostal": 78000,
+        "batiment": "Maison",
+        "nbEtage": "5",
+        "valeur": 100000
+    },
+    {
+        "adresse": "42 Rue Mj",
+        "codePostal": 78000,
+        "batiment": "Maison",
+        "nbEtage": "6",
+        "valeur": 120000
+    }
+]

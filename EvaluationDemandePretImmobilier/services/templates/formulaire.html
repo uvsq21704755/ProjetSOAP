@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Saisie du dossier de demande de prêt</title>
+        <link rel="stylesheet" type="text/css" href="../static/css/formulaire.css">
+        <script src="../static/js/soap.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+        <h1>Formulaire de demande de prêt</h1>
+        <div class="form-box">
+        <form action="/enregistrer" method="post">
+            <label for="nom">Nom complet :</label>
+            <input type="text" id="nom" name="nom" required><br>
+            
+            <label for="adresse">Adresse :</label>
+            <input type="text" id="adresse" name="adresse" required><br>
+
+            <label for="email">E-mail :</label>
+            <input type="email" id="email" name="email" required><br>
+            
+            <label for="telephone">Numéro de téléphone :</label>
+            <input type="tel" id="telephone" name="telephone" required><br>
+            
+            <label for="montantpret">Montant du prêt (en euros) :</label>
+            <input type="number" id="montantpret" name="montantpret" required><br>
+
+            <label for="dureepret">Durée du prêt (en années) :</label>
+            <input type="number" id="dureepret" name="dureepret" required><br>
+
+            <label for="descriptionpropriete">Description de la propriété :</label>
+            <textarea id="descriptionpropriete" name="descriptionpropriete" rows="4" required></textarea><br>
+
+            <label for="revenumensuel">Revenu mensuel (en euros) :</label>
+            <input type="number" id="revenumensuel" name="revenumensuel" required><br>
+
+            <label for="depensemensuelle">Dépense mensuelle (en euros) :</label>
+            <input type="number" id="depensemensuelle" name="depensemensuelle" required><br>
+
+            <label for="idbanque">Numéro de compte bancaire :</label>
+            <input type="number" id="idbanque" name="idbanque" required><br>
+
+            <label for="idpropriete">Référence de la propriété :</label>
+            <input type="number" id="idpropriete" name="idpropriete" required><br>
+
+            <input type="submit" class="btn" value="SOUMETTRE">
+
+        </form>
+        </div>
+        </div>
+    </body>
+</html>

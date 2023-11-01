@@ -1,0 +1,5 @@
+#!/bin/sh
+python -m venv ./venv
+./venv/bin/pip install lxml spyne flask pysimplesoap watchdog asyncio asgiref suds requests
+export CHEMINPROJ="EvaluationDemandePretImmobilier/services"
+mkdir $CHEMINPROJ/demandeTxt $CHEMINPROJ/demandeXml $CHEMINPROJ/reponseTxt 2>/dev/null

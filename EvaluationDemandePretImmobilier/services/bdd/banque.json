@@ -1,0 +1,20 @@
+[
+    {
+        "idBanque": 11,
+        "age": 25,
+        "enfants": 0,
+        "emploi": 0,
+        "nbCreditsEnCours": 0,
+        "antecedents": 0,
+        "tauxEndettement": 0
+    },
+    {
+        "idBanque": 22,
+        "age": 50,
+        "enfants": 4,
+        "emploi": 1,
+        "nbCreditsEnCours": 4,
+        "antecedents": 1,
+        "tauxEndettement": 45
+    }
+]

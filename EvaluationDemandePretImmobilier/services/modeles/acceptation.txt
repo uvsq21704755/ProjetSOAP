@@ -1,0 +1,5 @@
+Bonjour [nom],
+Félicitations, votre demande de prêt numéro [numeroDossier] a bien été <vert>approuvée</vert>.
+Veuillez trouver les modalités suivantes à respecter:
+    - Montant de prêt accordé : [montantPret]
+    - Durée du prêt : [dureePret]

@@ -1,0 +1,5 @@
+#!/bin/sh
+export CHEMINPROJ="EvaluationDemandePretImmobilier/services"
+clear
+echo Démarrage du serveur...
+./venv/bin/python $CHEMINPROJ/serviceComposite.py

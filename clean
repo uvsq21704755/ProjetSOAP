@@ -1,0 +1,6 @@
+#!/bin/sh
+export CHEMINPROJ="EvaluationDemandePretImmobilier/services"
+rm $CHEMINPROJ/demandeTxt/*.txt 2>/dev/null
+rm $CHEMINPROJ/demandeXml/*.xml 2>/dev/null
+rm $CHEMINPROJ/reponseTxt/*.txt 2>/dev/null
+rm $CHEMINPROJ/soap/*.xml 2>/dev/null

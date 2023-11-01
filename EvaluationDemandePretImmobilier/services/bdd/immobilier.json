@@ -1,0 +1,22 @@
+[
+    {
+        "idImmobilier": 1,
+        "adresse": "123 Rue de la Liberte, 75001 Paris, France",
+        "age": 9,
+        "normeLegal": 0,
+        "normeReglementaire": 0,
+        "litigesEnCours": 0,
+        "normeElectricite": "NF C 15-100",
+        "normeGaz": "NF P 45-500"
+    },
+    {
+        "idImmobilier": 2,
+        "adresse": "45 avenue des Etats-Unis, 78000 Versailles, France",
+        "age": 23,
+        "normeLegal": 1,
+        "normeReglementaire": 1,
+        "litigesEnCours": 1,
+        "normeElectricite": "NF C 14-100",
+        "normeGaz": ""
+    }
+]
