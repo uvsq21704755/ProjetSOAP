@@ -1,10 +1,12 @@
-# Configurer l'environnement virtuel et ajouter les dépendances nécessaires
+# Projet SOAP - Evaluation des demandes de prêts immobiliers 
+
+## Configurer l'environnement virtuel et ajouter les dépendances nécessaires
 
 `chmod 774 ./configure`
 
 `./configure`
 
-# Lancer le serveur Flask et l'interface web
+## Lancer le serveur Flask et l'interface web
 
 `chmod 774 ./run`
 
@@ -12,16 +14,16 @@
 
 L'interface est accessible à `http://localhost:8000`
 
-# Interface
+## Interface
 
-## Dépôt de dossier
+### Dépôt de dossier et acceptation du prêt
 
 ![](https://github.com/Clem0908/Usefull_bash_scripts/blob/main/depot_dossier.gif)
 
-## Récupération de dossier
+### Récupération de dossier
 
 ![](https://github.com/Clem0908/Usefull_bash_scripts/blob/main/recup_dossier.gif)
 
-## Refus de prêt
+### Refus de prêt
 
 ![](https://github.com/Clem0908/Usefull_bash_scripts/blob/main/refus.gif)
