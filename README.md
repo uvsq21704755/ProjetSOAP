@@ -16,14 +16,14 @@ L'interface est accessible à `http://localhost:8000`
 
 ## Interface
 
-### Dépôt de dossier et acceptation du prêt
+### Dépôt d'un dossier de prêt
 
 ![](https://github.com/Clem0908/Usefull_bash_scripts/blob/main/depot_dossier.gif)
 
-### Récupération de dossier
+### Récupération des résultats : acceptation de demande de prêt
 
 ![](https://github.com/Clem0908/Usefull_bash_scripts/blob/main/recup_dossier.gif)
 
-### Refus de prêt
+### Récupération des résultats : refus de demande de prêt
 
 ![](https://github.com/Clem0908/Usefull_bash_scripts/blob/main/refus.gif)
