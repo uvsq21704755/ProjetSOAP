@@ -1,16 +1,10 @@
-import logging
-import sys
-from spyne import Application, rpc, ServiceBase, Integer, Unicode, srpc
-from spyne import Iterable
-from spyne.protocol.soap import Soap11
-from spyne.server.wsgi import WsgiApplication
-from spyne.util.wsgi_wrapper import run_twisted
-from wsgiref.simple_server import make_server
-import os
+# Utilitaires
 import xml.etree.ElementTree as ET
 import json
 
-
+# Spyne
+from spyne import Application, srpc, ServiceBase, Unicode
+from spyne.protocol.soap import Soap11
 
 def creationDBBanque():
     
@@ -25,18 +19,11 @@ def creationDBBanque():
 
     with open(lienJSON, "w") as json_file:
         json_file.write(json_string)
-        
-    print("creationDBBanque : "+lienJSON)
 
     return lienJSON
 
-
 def recupDonnees(lienXML, lienJSON):
     
-    print("recupDonnees XML: "+lienXML)
-    print("recupDonnees JSON: "+lienJSON)
-    
-    #recuperation du XML
     tree = ET.parse(lienXML)
     root = tree.getroot()
     
@@ -46,8 +33,6 @@ def recupDonnees(lienXML, lienJSON):
     donnees.append(root.find('.//dureePret').text)
     donnees.append(root.find('.//revenuMensuel').text)
     donnees.append(root.find('.//depenseMensuelle').text)
-    
-    #recuperation du JSON
     
     with open(lienJSON, "r") as json_file:
         banque = json.load(json_file)
@@ -65,12 +50,9 @@ def recupDonnees(lienXML, lienJSON):
             donnees.append(client["tauxEndettement"])
 
     return donnees
-    
-    
 
 def calculScoring(donnees,lienXML):
     
-    #stockage des données
     idBanque = donnees[0]
     montantPret = donnees[1]
     dureePret = donnees[2]
@@ -83,8 +65,6 @@ def calculScoring(donnees,lienXML):
     antecedents = donnees[9]
     tauxEndettement = donnees[10]
     
-    
-    #transformation str en int
     score = -1
     ageI = int(age)
     antecedentsI = int(antecedents)
@@ -99,8 +79,6 @@ def calculScoring(donnees,lienXML):
 
     decision = "Pas de décision"
     
-    
-    #calcul scoring
     if ageI < 18 or tauxEndettementI >= 33 or (depenseMensuelleI + capaciteEmpruntI) > revenuMensuelI:
         if ageI < 18: decision = 'Non Admissible'
         if tauxEndettementI >= 33: decision = 'Non Admissible'
@@ -215,8 +193,6 @@ def calculScoring(donnees,lienXML):
             elif 0 <= score <= 10:
                 if decision != 'Non Admissible': decision = 'Peu probable'
     
-        
-    #Ajout des attributs dans le fichier XML
     tree = ET.parse(lienXML)
     root = tree.getroot()
         
@@ -229,19 +205,19 @@ def calculScoring(donnees,lienXML):
     tree.write(lienXML)
         
     return lienXML
-    
-    
 
 class serviceSolvabilite(ServiceBase): 
-    @srpc(Unicode, _returns=Unicode)
+
+    @srpc(Unicode, _returns = Unicode)
     def verificationSolvabilite(lienXML):
+
         lienJSON = creationDBBanque()
         donnees=recupDonnees(lienXML,lienJSON)
         return calculScoring(donnees,lienXML)
     
     
 wsdl_appSolvabilite = Application([serviceSolvabilite],
-    tns='serviceSolvabilite',
-    in_protocol=Soap11(validator='lxml'),
-    out_protocol=Soap11()
+    tns = 'serviceSolvabilite',
+    in_protocol = Soap11(validator='lxml'),
+    out_protocol = Soap11()
 )

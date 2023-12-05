@@ -30,28 +30,28 @@
     {
         "adresse": "1 Rue Jesaispas",
         "codePostal": 78000,
-        "batiment": "Maison",
+        "batiment": "Appartement",
         "nbEtage": "6",
         "valeur": 150000
     },
     {
         "adresse": "3 Rue Truc",
         "codePostal": 78000,
-        "batiment": "Maison",
+        "batiment": "Appartement",
         "nbEtage": "7",
         "valeur": 180000
     },
     {
         "adresse": "27 Avenue Bidule",
         "codePostal": 78000,
-        "batiment": "Maison",
+        "batiment": "Appartement",
         "nbEtage": "5",
         "valeur": 100000
     },
     {
         "adresse": "42 Rue Mj",
         "codePostal": 78000,
-        "batiment": "Maison",
+        "batiment": "Appartement",
         "nbEtage": "6",
         "valeur": 120000
     }

@@ -1,5 +1,7 @@
-#!/bin/sh
-python -m venv ./venv
-./venv/bin/pip install lxml spyne flask pysimplesoap watchdog asyncio asgiref suds requests
+if [ ! -d "./venv" ]; then
+	python -m venv ./venv
+	./venv/bin/pip install lxml spyne flask pysimplesoap watchdog asyncio asgiref suds requests
+fi
+
 export CHEMINPROJ="EvaluationDemandePretImmobilier/services"
-mkdir $CHEMINPROJ/demandeTxt $CHEMINPROJ/demandeXml $CHEMINPROJ/reponseTxt 2>/dev/null
+mkdir $CHEMINPROJ/demandeTxt $CHEMINPROJ/demandeXml $CHEMINPROJ/reponseTxt $CHEMINPROJ/soap 2>/dev/null

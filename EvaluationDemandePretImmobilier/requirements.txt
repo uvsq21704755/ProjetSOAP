@@ -1,6 +1,0 @@
-#ajout des versions des librairies
-spyne==2.14.0
-twisted==23.8.0
-lxml==4.9.3
-spacy==3.7.2
-flask==3.0.0

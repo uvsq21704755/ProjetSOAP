@@ -1,0 +1,11 @@
+./clean
+NOM=SUGUMAR_CONOR
+mkdir $NOM
+cp archive $NOM
+cp run $NOM
+cp configure $NOM
+cp clean $NOM
+cp README.md $NOM
+cp -r EvaluationDemandePretImmobilier $NOM
+tar czvf $NOM.tar.gz $NOM
+rm -r $NOM

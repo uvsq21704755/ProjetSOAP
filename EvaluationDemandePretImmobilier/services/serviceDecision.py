@@ -1,16 +1,11 @@
-import logging
-import sys
-from spyne import Application, rpc, srpc, ServiceBase, Integer, Unicode, String, UnsignedInteger
-from spyne import Iterable
-from spyne.protocol.soap import Soap11
-from spyne.server.wsgi import WsgiApplication
-from spyne.util.wsgi_wrapper import run_twisted
-from wsgiref.simple_server import make_server
-import os
+# Utilitaires
 import xml.etree.ElementTree as ET
 
-CHEMIN_RACINE = "./EvaluationDemandePretImmobilier/services/"
+# Spyne, WSGI
+from spyne import Application, srpc, ServiceBase, Unicode
+from spyne.protocol.soap import Soap11
 
+CHEMIN_RACINE = "./EvaluationDemandePretImmobilier/services/"
 
 def recupXML(lienXML):
     
@@ -26,18 +21,16 @@ def recupXML(lienXML):
     donnees.append(root.find('.//decisionScore').text)
     donnees.append(root.find('.//decisionConformite').text)
     donnees.append(root.find('.//estimationValeur').text)
+
     if (donnees.append(root.find('.//decisionConformite').text)) == 'Non admissible a un pret immobilier':
         donnees.append(root.find('.//raisons').text)
     
     return donnees
 
-
-
 def decision(donnees,lienXML):
     
     raisons = ""
     
-    #stockage des donnees
     numDossier = donnees[0]
     nom = donnees[1]
     montantPret = int(donnees[2])
@@ -46,12 +39,10 @@ def decision(donnees,lienXML):
     decisionScore = donnees[5]
     decisionConformite = donnees[6]
     estimationValeur = int(donnees[7])
+
     if str(decisionScore) == 'Non admissible a un pret immobilier':
         raisons = donnees[8]
         
-        
-    
-    # Refus sans plus d'analyses :
     motif = "inconnu"
     test = -1
     
@@ -80,9 +71,6 @@ def decision(donnees,lienXML):
     else:
         motif = "votre score n'est pas suffisant"
         test = 0
-        
-
-    #affichage du bon fichier sur l'interface
 
     lienTxt = str(CHEMIN_RACINE)+"reponseTxt/"+numDossier+".txt"
     reponseTxt = open(lienTxt,"w")
@@ -112,7 +100,8 @@ def decision(donnees,lienXML):
     return lienTxt
 
 class serviceDecision(ServiceBase): 
-    @srpc(Unicode,_returns=Unicode)
+
+    @srpc(Unicode,_returns = Unicode)
     def decisionApprobation(lienXML):
         donnees = recupXML(lienXML)
         lienTXT = decision(donnees, lienXML)
@@ -120,7 +109,7 @@ class serviceDecision(ServiceBase):
 
 
 wsdl_appDecision = Application([serviceDecision],
-    tns='serviceDecision',
-    in_protocol=Soap11(validator='lxml'),
-    out_protocol=Soap11()
+    tns = 'serviceDecision',
+    in_protocol = Soap11(validator='lxml'),
+    out_protocol = Soap11()
 )

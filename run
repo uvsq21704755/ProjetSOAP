@@ -1,4 +1,7 @@
-#!/bin/sh
+if [ ! -d "./venv" ]; then 
+	./configure
+fi
+
 export CHEMINPROJ="EvaluationDemandePretImmobilier/services"
 clear
 echo Démarrage du serveur...

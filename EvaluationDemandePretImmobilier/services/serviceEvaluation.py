@@ -1,26 +1,18 @@
-import logging
-import sys
-from spyne import Application, rpc, ServiceBase, Integer, Unicode, srpc
-from spyne import Iterable
-from spyne.protocol.soap import Soap11
-from spyne.server.wsgi import WsgiApplication
-from spyne.util.wsgi_wrapper import run_twisted
-from wsgiref.simple_server import make_server
+# Utilitaires
 import json
 import xml.etree.ElementTree as ET
 import random
-import os
 import re
 
-
+# Spyne
+from spyne import Application, ServiceBase, Unicode, srpc
+from spyne.protocol.soap import Soap11
 
 nombres_en_texte = {
     "un": "1",
     "deux": "2",
     "trois": "3",
 }
-
-
 
 def creationDBImmobilier():
     
@@ -36,10 +28,7 @@ def creationDBImmobilier():
     with open(lienJSON, "w") as json_file:
         json_file.write(json_string)
         
-    print("creationDBImmobilier : "+lienJSON)
     return lienJSON
-
-
 
 def creationDBMarcheImmobilier():
     
@@ -61,14 +50,10 @@ def creationDBMarcheImmobilier():
     with open(lienJSON, "w") as json_file:
         json_file.write(json_string)
         
-    print("creationDBMarcheImmobilier : "+lienJSON)
     return lienJSON
-
-
 
 def recupDonneesImmobilier(lienXML, lienJSONImmobilier):
     
-    #recuperation XML
     tree = ET.parse(lienXML)
     root = tree.getroot()
     
@@ -76,7 +61,6 @@ def recupDonneesImmobilier(lienXML, lienJSONImmobilier):
     donnees.append(root.find('.//idPropriete').text)
     donnees.append(root.find('.//adresse').text)
     
-    #recuperation JSON
     with open(lienJSONImmobilier, "r") as json_file:
         immobilier = json.load(json_file)
     
@@ -94,11 +78,8 @@ def recupDonneesImmobilier(lienXML, lienJSONImmobilier):
             
     return donnees
 
-
-
 def recupDonneesMarcheImmobilier(lienXML):
     
-    #recuperation XML
     tree = ET.parse(lienXML)
     root = tree.getroot()
     
@@ -107,23 +88,18 @@ def recupDonneesMarcheImmobilier(lienXML):
     donnees.append(root.find('.//descriptionPropriete').text)
     
     return donnees
-    
-    
 
 def verificationConformite(donnees, lienXML, lienJSONImmobilier): 
     
-    print(donnees)
-    #Recupération des données XML/JSON
-    idImmobilier=donnees[0]
-    adresse=donnees[1]
-    age=donnees[2]
-    normeLegal=donnees[3]
-    normeReglementaire=donnees[4]
-    litigesEnCours=donnees[5]
-    normeElectricite=donnees[6]
-    normeGaz=donnees[7]
+    idImmobilier = donnees[0]
+    adresse = donnees[1]
+    age = donnees[2]
+    normeLegal = donnees[3]
+    normeReglementaire = donnees[4]
+    litigesEnCours = donnees[5]
+    normeElectricite = donnees[6]
+    normeGaz = donnees[7]
     
-    #Initialisation
     decision = 'Admissible a un pret immobilier'
     facteur1 = ''
     facteur2 = ''
@@ -131,7 +107,6 @@ def verificationConformite(donnees, lienXML, lienJSONImmobilier):
     facteur4 = ''
     facteur5 = ''
     
-    #Attribution aléatoire des visites (virtuelles et sur place)
     random_number = random.randint(0, 1)
     
     if random_number == 0:
@@ -141,8 +116,6 @@ def verificationConformite(donnees, lienXML, lienJSONImmobilier):
         visitevirutelle = "Visite virtuelle demandée et effectuée"
         visitesurplace = "Visite sur place non demandée et non effectuée"
 
-
-    #Décision
     if age < 10:
         if normeElectricite not in ['NFC 15-100', 'NF C 15-100', 'C 15-100']:
             facteur1 = 'Non conforme : Electricite'
@@ -170,7 +143,6 @@ def verificationConformite(donnees, lienXML, lienJSONImmobilier):
         facteur5 = 'Il y a au moins 1 litige en cours'
         decision = 'Non admissible a un pret immobilier'
         
-    # Ajout des attributs decision et raison 
     tree = ET.parse(lienXML)
     root = tree.getroot()
     decision_element = ET.Element("decisionConformite")
@@ -178,10 +150,9 @@ def verificationConformite(donnees, lienXML, lienJSONImmobilier):
     root.append(decision_element)
         
     if decision == 'Non admissible a un pret immobilier':
-        # Créer un nouvel élément pour raisons
         raison_element = ET.Element("raisons")
         raison_element.text = ''
-        # Liste les raisons du refus
+
         if facteur1 == 'Non conforme : Electricite':
             raison_element.text += facteur1
         if facteur2 == 'Non conforme : Gaz':
@@ -195,16 +166,12 @@ def verificationConformite(donnees, lienXML, lienJSONImmobilier):
             
         root.append(raison_element)
         
-    # Enregistrer les modifications dans le fichier XML
     tree.write(lienXML)
     
     return lienXML
     
-    
-    
 def valeurMarche(donnees, lienXML, lienJSONMarcheImmobilier):
     
-    #Récupération des données XML
     adresseXML = donnees[0]
     descriptionProprieteXML = donnees[1]
     
@@ -212,7 +179,6 @@ def valeurMarche(donnees, lienXML, lienJSONMarcheImmobilier):
     modeleRegex = r"(Maison|Appartement)|(maison|appartement)(?:.*?(\b\w+\b)?\s?[ée]tage[s])?"
     resultat = re.search(modeleRegex, descriptionProprieteXML, re.IGNORECASE)
     
-
     nbEtageXML = None
     batimentXML = None
     moyenne_valeur = 0
@@ -222,9 +188,7 @@ def valeurMarche(donnees, lienXML, lienJSONMarcheImmobilier):
         nbEtageExtrait = resultat.group(2) if resultat.group(2) else None
         nbEtageXML = nombres_en_texte.get(nbEtageExtrait.lower(), nbEtageExtrait) if nbEtageExtrait else None
     else:
-        print("Aucun match trouvé.")
-         
-         
+        print("[serviceEvaluation] : Aucun match trouvé")
          
     with open(lienJSONMarcheImmobilier, "r") as json_file:
         marcheImmobilier = json.load(json_file)
@@ -234,18 +198,18 @@ def valeurMarche(donnees, lienXML, lienJSONMarcheImmobilier):
     if nbEtageXML == None:
         for propriete in marcheImmobilier:
             if (str(propriete["codePostal"]) == str(codePostalXML)) and (str(propriete['batiment']) == str(batimentXML)):
-                somme+=propriete["valeur"]
-                nbElements+=1
+                somme += propriete["valeur"]
+                nbElements += 1
     else:
         for propriete in marcheImmobilier:
             if (str(propriete["codePostal"]) == str(codePostalXML)) and (str(propriete['batiment']) == str(batimentXML)) and (str(propriete["nbEtage"]) == str(nbEtageXML)):
-                somme+=propriete["valeur"]
-                nbElements+=1
+                somme += propriete["valeur"]
+                nbElements += 1
 
     if resultat is not None and resultat[0] is not None:
         moyenne_valeur = int(somme/nbElements)
     else:
-        print("Aucun résultat trouvé pour le code_postal", codePostalXML, ", le batiment", batimentXML, "et le nombre d'etages", nbEtageXML)
+        print("[serviceEvaluation] : Aucun résultat trouvé pour le code_postal", codePostalXML, ", le bâtiment", batimentXML, "et le nombre d'étages", nbEtageXML)
 
     estimationValeur_element = ET.Element("estimationValeur")
     estimationValeur_element.text = str(moyenne_valeur)
@@ -255,8 +219,6 @@ def valeurMarche(donnees, lienXML, lienJSONMarcheImmobilier):
     tree.write(lienXML)
     
     return lienXML
-
-
 
 class serviceEvaluation(ServiceBase): 
 
@@ -271,11 +233,9 @@ class serviceEvaluation(ServiceBase):
         valeurMarche(donneesMarcheImmobilier, lienXML, lienJSONMarcheImmobilier)
 
         return lienXML
-    
-
 
 wsdl_appEvaluation = Application([serviceEvaluation],
-    tns='serviceEvaluation',
-    in_protocol=Soap11(validator='lxml'),
-    out_protocol=Soap11()
+    tns = 'serviceEvaluation',
+    in_protocol = Soap11(validator='lxml'),
+    out_protocol = Soap11()
 )

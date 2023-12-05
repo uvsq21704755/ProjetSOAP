@@ -1,6 +1,7 @@
-#!/bin/sh
 export CHEMINPROJ="EvaluationDemandePretImmobilier/services"
-rm $CHEMINPROJ/demandeTxt/*.txt 2>/dev/null
-rm $CHEMINPROJ/demandeXml/*.xml 2>/dev/null
-rm $CHEMINPROJ/reponseTxt/*.txt 2>/dev/null
-rm $CHEMINPROJ/soap/*.xml 2>/dev/null
+rm -r $CHEMINPROJ/demandeTxt 2>/dev/null
+rm -r $CHEMINPROJ/demandeXml 2>/dev/null
+rm -r $CHEMINPROJ/reponseTxt 2>/dev/null
+rm -r $CHEMINPROJ/soap 2>/dev/null
+rm -rf $CHEMINPROJ/__pycache__ 2>/dev/null
+rm -rf ./venv 2>/dev/null
