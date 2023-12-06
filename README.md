@@ -50,11 +50,11 @@ Identifiant propriété : 1
 #### Résultat
 
 ```
-Score : 
-Decision Score : Très favorable
+Score : 28
+Decision Score : Sous condition
 Decision Conformité : Admissible a un pret immobilier
 Raisons : /
-EstimationValeur: 
+EstimationValeur: 154000
 => DEMANDE DE PRÊT ACCEPTEE
 ```
 
@@ -78,10 +78,10 @@ Identifiant propriété : 2
 #### Résultat
 
 ```
-Score : 
-Decision Score : 
-Decision Conformité : 
-Raisons : 
-EstimationValeur: 
+Score : -1
+Decision Score : Non admissible
+Decision Conformité : Non admissible a un pret immobilier
+Raisons : Normes non reglementaires ! Il y a au moins 1 litige en cours
+EstimationValeur: 0
 => DEMANDE DE PRÊT REJETEE
 ```

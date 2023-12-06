@@ -7,6 +7,8 @@ import xml.etree.ElementTree as ET
 from spyne import Application, srpc, ServiceBase, Unicode
 from spyne.protocol.soap import Soap11
 
+
+
 def extractionDonnees(cheminFichierTxt):
 
     with open(cheminFichierTxt, 'r') as fichier:
@@ -77,6 +79,7 @@ class serviceExtraction(ServiceBase):
         cheminFichierXML = ecritureXML(cheminFichierTxt, extractionDonnees(cheminFichierTxt))
         
         return cheminFichierXML
+
 
 wsdl_appExtraction = Application([serviceExtraction],
     tns='serviceExtraction',

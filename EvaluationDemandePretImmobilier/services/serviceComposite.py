@@ -6,6 +6,7 @@ import requests
 import threading
 import xml.etree.ElementTree as ET
 
+
 # Spyne, WSGI, Flask
 from spyne import Application, ServiceBase
 from spyne.protocol.soap import Soap11
@@ -16,20 +17,24 @@ from wsgiref.simple_server import make_server
 from flask import Flask, render_template, request
 from suds.client import Client
 
+
 # Import des services
 import serviceExtraction
 import serviceSolvabilite
 import serviceEvaluation
 import serviceDecision
 
+
 BDclient = "../static/client.json"
 CHEMIN_RACINE = "./EvaluationDemandePretImmobilier/services/"
+
 
 class serviceComposite(ServiceBase):
 
     def recupDossier(numDoss: int):
         if os.path.exists(str(CHEMIN_RACINE)+"demandeTxt/"+str(numDoss)+".txt"):
             nouvelleDemandeClient(numDoss)
+
 
 def nouvelleDemandeClient(numDoss: int):
 
@@ -50,6 +55,8 @@ def nouvelleDemandeClient(numDoss: int):
     root = tree.getroot()
     namespace = {'soap11env': 'http://schemas.xmlsoap.org/soap/envelope/', 'tns': 'serviceExtraction'}
     lienXML = str(root.find('.//tns:extractionTxtResult', namespaces=namespace).text)
+
+
 
     wsdl_url2 = "http://localhost:8000/serviceSolvabilite?wsdl"
     client = Client(wsdl_url2)
@@ -73,11 +80,12 @@ def nouvelleDemandeClient(numDoss: int):
     soapFichier3.write(str(soapRecu3))
     soapFichier3.close()
     
+    
+    
     wsdl_url4 = "http://localhost:8000/serviceDecision?wsdl"
     client = Client(wsdl_url4)
     client.service.decisionApprobation(lienXML)
     soapRecu4 = client.last_received()
-    
     
     lienSOAP4 = str(CHEMIN_RACINE)+"soap/decision.xml"
     soapFichier4 = open(lienSOAP4,'w',encoding="utf-8")
@@ -215,3 +223,7 @@ if __name__ == '__main__':
     
     server = make_server('localhost', 8000, wsgi_app)
     server.serve_forever()
+
+
+
+
